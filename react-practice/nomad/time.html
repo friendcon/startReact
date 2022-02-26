@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    function App() {
+        const [amount, setAmount] = React.useState();
+        const [reverse, setReverse] = React.useState(false);
+
+        const onChange = () => {
+            setAmount(event.target.value);
+        };
+
+        const reset = () => setAmount(0);
+
+        const onReverse = () => {
+            reset();
+            setReverse(current => !current);
+        };
+
+        return (
+            <div>
+                <h3 className="hi">Converter</h3>
+                <div>
+                    <label htmlFor="minutes">분</label>
+                    <input
+                        id="minutes"
+                        placeholder="minutes"
+                        type="number"
+                        value={reverse ? amount * 60 : amount}
+                        onChange={onChange}
+                        disabled={reverse}/>
+                </div>
+
+                <h4>변환 결과 {amount}</h4>
+                <div>
+                    <label htmlFor="hours">시간</label>
+                    <input
+                        id="hours"
+                        placeholder="Hours"
+                        type="number"
+                        value={reverse ? amount : Math.round(amount / 60)}
+                        onChange={onChange}
+                        disabled={!reverse}/>
+                </div>
+                <button onClick={reset}>Reset</button>
+                <button onClick={onReverse}>Reverse</button>
+            </div>
+
+        );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+</script>
+</html>

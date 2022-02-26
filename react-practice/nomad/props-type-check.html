@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<!--change jsx to html-->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<!--for checking props type-->
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+
+<script type="text/babel">
+    function Btn({text, fontSize, changeValue}) {
+        console.log(text + " is rendered");
+        return (
+            <button
+                onClick={changeValue}
+                style={{
+                    backgroudColor: "red",
+                    color: "black",
+                    padding: "10px 20px",
+                    border: 0,
+                    borderRadius: 10,
+                    fontSize: fontSize,
+                }}>{text}</button>
+        );
+    }
+
+    Btn.propTypes = {
+        text: PropTypes.string.isRequired,
+        fontSize: PropTypes.number.isRequired,
+    }
+    function App() {
+        const [value, setValue] = React.useState("Save Changes");
+        const changeValue = () => setValue("Revert Changes");
+        return (
+            <div>
+                <Btn text="Save Changes" fontSize={18} />
+                <Btn fontSize={20} text={"18"} />
+            </div>
+        );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+</script>
+</html>
