@@ -38,11 +38,26 @@ function App() {
         특정 부분이 한번만 실행되게끔 하려면 어떻게 해결해야할까?
         A. useEffect(한번만 실행하고 싶은 코드, dependency)
      */
+
+    const [showing, setShowing] = useState(false);
+    const onClick2 = () => {
+        setShowing((prev) => !prev);
+    }
+
+    function Hello() {
+        useEffect(() => {
+            console.log("hi");
+            return () => console.log("bye");
+        }, []);
+        return <h1>Hello</h1>;
+    }
   return (
     <div>
         <input value={keyword} type="text" placeholder="Search Here..." onChange={onChange}/>
         <h1>{counter}</h1>
         <button onClick={onClick}>click me</button>
+        {showing ? <Hello/> : null}
+        <button onClick={onClick2}>{showing ? "Hide" : "Show"}</button>
     </div>
   );
 }
